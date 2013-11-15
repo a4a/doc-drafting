@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+%\newcommand{\bm}[1]{\text{\textbf{$#1$}}}
+
+\begin{document}
+
+\section{An Implementation of Bayesian Model Averaging}
+
+Thanks to Ruth :) \\
+
+We are going to implement model averaging using reversible jump MCMC (RJMCMC) where we use Metropolis Hastings (MH) steps in which proposal distributions are approximations to the posterior distribution of each models parameters.  Here is a brief summary of MH MCMC and RJMCMC, followed by specific implementation details and code.
+
+\subsection{The Metropolis Hastings algorithm}
+
+The Metropolis Hastings algorithm is an attractivly simple way to implement MCMC.  It involves a proposal step and an acceptance step
+\begin{enumerate}
+  \item Propose new values for the model parameters
+  \item Accept these values with some probability
+\end{enumerate}
+Suppose the model is simply a linear regression with an intercept only where the data is $\bm{x} = (x_1, x_2, \ldots, x_n)$, then the likelihood of the data is:
+\begin{align*}
+  f(\bm{x}|\mu,\sigma) &= \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left(\frac{1}{2\sigma^2} \sum_{i=1}^n (x_i - \mu)^2 \right)
+\end{align*}
+and the posterior distribution of the parameters is:
+\begin{align*}
+  \pi(\mu,\sigma|\bm{x}) &= \frac{f(\bm{x}|\mu,\sigma) p(\mu, \sigma)}{f(\bm{x})} \\
+                         &\propto f(\bm{x}|\mu,\sigma) p(\mu, \sigma)
+\end{align*}
+Suppose we are  in the middle of an MCMC chain and the current values of the parameters in the chain are $\mu_k$ and $\sigma_k$, then posterior density is $\pi(\mu_k, \sigma_k|\bm{x})$.  The metropolis hastings proceeds by proposing new values $\mu'$ and $\sigma'$.  If we choose these values in such a way that the probability of proposing $\mu'$ and $\sigma'$ when the chain is in state ($\mu_k$, $\sigma_k$) is the same as the probability of proposeing $\mu_k$ and $\sigma_k$ when the chain is in state ($\mu'$, $\sigma'$) - what is often called a symetric proposal - then the proposed values are accepted with probability min(1,A) where
+\begin{align*}
+  A = \frac{\pi(\mu',\sigma'|\bm{x})}{\pi(\mu,\sigma|\bm{x})}
+\end{align*}
+A typical symmetric proposal distribution is to use a (bivariate) uniform distribution with mean ($\mu_k$, $\sigma_k$).  This is acheved in practice by testing if a standard uniform (0 to 1) variable is less than A then the proposal is accepted.  If the proposal is accepted then 
+\begin{align*}
+  \mu_{k+1} = \mu' \\
+  \sigma_{k+1} = \sigma' \\
+\end{align*}
+other wise $\mu_{k+1} = \mu_k$ and $\sigma_{k+1} = \sigma_k$.  Since $\sigma$ has to be posotive then the proposal is rejected if $\sigma'$ is negative or zero.
+
+For a general model with posterior $\pi(\bm{\theta}|\bm{x})$ the MH algorithm is:
+
+
+\end{document}

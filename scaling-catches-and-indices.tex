@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\begin{document}
+
+\section{Scaling inputs in a statistical catch at age}
+
+To see the effect of scaling catch data or survey data a simple model is used - it is assumed that $F$, $M$, $R$ and $Q$ is assumed constant over age and time, also $M$ is not estimated but is a fixed parameter.  First consider the observation equation for catch written in terms of recruitment at age 1, $R$ 
+\begin{align}
+  \exp \mathbb{E} [ \log C_{ay} ] &= R e^{-(a-1)(F+M)} \frac{F}{F+M} \left( 1 + e^{-F-M} \right)  
+\end{align}
+if we scale catch so that $\alpha C_{ay} = C'_{ay}$, then
+\begin{align}
+  \exp \mathbb{E} [ \log C'_{ay} ] &=  \exp \mathbb{E} [ \log \alpha C_{ay} ] = \alpha \exp \mathbb{E} [ \log C'_{ay} ]
+\intertext{i.e.}
+  \exp \mathbb{E} [ \log C_{ay} ] &= \frac{1}{\alpha} R' e^{-(a-1)(F'+M)} \frac{F'}{F'+M} \left( 1 + e^{-F'-M} \right)   
+\end{align}
+Now consider the observation equation for indices written in terms of recruitment at age 1, $R$ 
+\begin{align}
+  \exp \mathbb{E} [ \log I_{ay} ] &= Q R e^{-(a-1)(F+M)}  
+\end{align}
+if we scale catch so that $\beta I_{ay} = I'_{ay}$, then
+\begin{align}
+  \exp \mathbb{E} [ \log I'_{ay} ] &= \exp \mathbb{E} [ \log \beta I_{ay} ] = \beta \exp \mathbb{E} [ \log I_{ay} ]
+\intertext{i.e.}
+  \exp \mathbb{E} [ \log C_{ay} ] &= \frac{1}{\beta}  Q' R' e^{-(a-1)(F'+M)}   
+\end{align}
+
+So comparing the equations before and after transformation it looks like the following should hold:
+\begin{align}
+  R &= \frac{1}{\alpha} R' \\
+\intertext{and}
+  Q &= \frac{\alpha}{\beta} Q'
+\end{align}
+
+But i would like to double check this.
+
+\end{document}

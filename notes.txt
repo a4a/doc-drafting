@@ -1,0 +1,8 @@
+Notes about the model implementation
+
+1) Develop new class based on FLAssess or FLModel to store model parameters instead of using environments.
+2) Develop predict and residuals methods
+3) Possibility to turn off verbose
+4) Looks like there are problems with ~virgin stocks. The problem seems to be the SepVPA that estimates f=0 which are log afterwards and become -inf. !! FIXED !!
+5) Why not estimating f for the last age? if it's a plus group than report previous age f.
+
