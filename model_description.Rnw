@@ -116,41 +116,63 @@ communication among scientists
 
 \section{The data and a simple model}
 
-The data are
-\begin{itemize}
-  \item[$C_{at}$] catch at age $a$ and year $t$
-  \item[$S_{atk}$] abundance index for age $a$ and year $t$ from the $k$th
-                   survey or CPUE series, $k = 1, 2, \ldots$
-\end{itemize}
+\newcommand{\obs}{\text{(obs)}}
 
-The model is an age structure model where the number of fish in a given cohort
-$N$ at the start of the following year is the number of fish that survived
-the perils of the current year.  We assume that fish die through the year at
-a constant rate $e^{-Z}$ ($Z$ is positive), and that this rate is solely due
-to natural causes ($M$) and fishing ($F$) so that the total mortality rate is
-$Z = F + M$.  This results in the model
+The data required to fit the \aFa stock assessment model are observations of catch $C^\obs_{ay}$ for
+age $a = a_0, a_0 + 1, \ldots$ and year $y = y_0, y_0 + 1, \ldots$, and observations of abundance
+indices $I^\obs_{ays}$ for age $a$ and year $y$ from the $s$th survey or CPUE series,
+$s = 1, 2, \ldots$
 
-\begin{align*}
-  N_{a+1,t+1} = N_{at} e^{- Z_{at}}
-\end{align*}
+The model is an age structure model where the number of fish at age $a$ at the start of year $y$
+is $N_{ay}$ are assumed to die through the year at a constant rate given by $e^{-Z_{ay}}$, where
+$Z_{ay}$ is always positive, and that this rate is solely due to natural causes $M_{ay}$ and
+fishing $F_{ay}$. At the start of the following year $y+1$ the number of fish $N_{a+1,y+1}$ is
+the number of fish, 1 year older, that survived the perils of year $y$. This results in an
+expression that describes the simplest type of population dynamics in the \a4a model
 
-Abundance indices are observations of the relative abundance not of absolute abundance.
-This is because trawl surveys do not detect every fish but a fixed proportion $Q$. This
-proportion depends on age through length and means the index is proportional to abundance
+\begin{align}
+  \label{eq:pop_decay}
+  N_{a+1,y+1} = N_{ay} e^{-Z_{ay}}
+\end{align}
 
-\begin{align*}
-  S_{at} &= Q_a N_{at}
-\end{align*}
+And to initialise this population, it requires a vector of numbers of recruiting fish
+$R_y = N_{a_0y}$, $y = y_0, y_0 + 1, \ldots$ and a vector of the age structure $N_{ay_0}$,
+$a = a_0 + 1, a_0 + 2, \ldots$ in year $y_0$.  These two vectors, along with an estimate of mortality
+$Z_{ay}$ are what is required to generate a model of the fish population, and are refered to as
+recruitment and initial-age-structure.
 
-If F and M are constant through the year catches arise as a fraction of those fish that
-died, and is written here as the familiar Baranov catch equation
+Unfortuntely, recruitment and the initial population structure are not directly observed, but the
+modelled numbers at age can be used to generate predictions that are directly observed in the form
+of survey indices and commercial catches. Abundance indices are (in most cases) observations of the
+relative abundance because they do not detect every fish but rather a fixed proportion $Q_{ays}$
+that can depend on age and year, and be survey specific.  This model of how the survey index
+relates to the numbers of fish in the population, allows a prediction of the survey indices
+$I_{ays}$ to be made, which can be compared to the observed survey indices $I^\obs_{ays}$.
 
-\begin{align*}
-  C_{at} &= \frac{F_{at}}{Z_{at}}\left(N_{at} - N_{a+1,t+1} \right) \\
-         &= \frac{F_{at}}{Z_{at}}\left(1 - e^{- Z_{at}}\right) N_{at}
-\end{align*}
+\begin{align}
+  \label{eq:survey_index}
+  I_{ays} &= Q_{ays} N_{ay}
+\end{align}
 
+As mentioned, it is also nessisary to estimate the mortality rate in the population. Usually, only
+mortality due to fishing is observed, and so natural mortality $M_{ay}$ is assumed to be known, and
+is set to a sensible value, guided by expert judgement. Fishing mortality $F_{ay}$, on the other hand
+is observed via the numbers removed through fishing. Because $F_{ay}$ and $M_{ay}$ are constant through
+the year, catches arise as a fraction of those fish that died $N_{ay} - N_{a+1,y+1}$, and is
+written here as the familiar Baranov catch equation. Note the second line arises by substituting
+the population equation (\ref{eq:pop_decay}) for $N_{a+1,y+1}$
 
+\begin{align}
+  \label{eq:catches}
+  C_{ay} &= \frac{F_{ay}}{Z_{ay}}\left(N_{ay} - N_{a+1,y+1} \right) \nonumber \\
+         &= \frac{F_{ay}}{Z_{ay}}\left(1 - e^{- Z_{ay}}\right) N_{ay}
+\end{align}
+
+This equation, like (\ref{eq:survey_index}) gives predicted catches based on the population model
+and provides a value which can be compared to the observed catches $C^\obs_{ay}$.  Taken together,
+the comparison of the observations of catches and survey index to their predictions is the
+underlying approach for estimating the numbers of fish in the population and the fishing mortality
+rate.
 
 
 
