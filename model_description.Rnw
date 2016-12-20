@@ -114,7 +114,7 @@ communication among scientists
 %
 % ---------------------------------------------------------------------------------------------------
 
-\section{The data and a simple model}
+\section{The basic approach}
 
 \newcommand{\obs}{\text{(obs)}}
 
@@ -168,11 +168,12 @@ the population equation (\ref{eq:pop_decay}) for $N_{a+1,y+1}$
          &= \frac{F_{ay}}{Z_{ay}}\left(1 - e^{- Z_{ay}}\right) N_{ay}
 \end{align}
 
-This equation, like (\ref{eq:survey_index}) gives predicted catches based on the population model
-and provides a value which can be compared to the observed catches $C^\obs_{ay}$.  Taken together,
-the comparison of the observations of catches and survey index to their predictions is the
-underlying approach for estimating the numbers of fish in the population and the fishing mortality
-rate.
+This equation, like (\ref{eq:survey_index}) gives predictions based on the population model
+and provides a value of catches which can be compared to the observed catches $C^\obs_{ay}$.  Taken
+together, the comparison of the observations of catches and survey index to their predictions is the
+basic approach for estimating the numbers of fish in the population and the fishing mortality
+rate in \aFa.
+
 
 
 
@@ -188,46 +189,47 @@ Modelled catches $C$ are defined in terms of the three quantities, natural morta
 $M$, fishing mortality $F$ and recruitment $R$, using a modified form of the well
 known Baranov catch equation:
 
-\begin{equation*}
+\begin{equation}
   C_{ay} = \frac{\bm{F}_{ay}}{\bm{F}_{ay}+M_{ay}}\left(1 - e^{-(\bm{F}_{ay}+M_{ay})}\right) \bm{R}_{y}e^{-\sum (\bm{F}_{ay} + M_{ay})}
-\end{equation*}
+\end{equation}
 
 where $a$ and $y$ denote age and year. Modelled survey indices $I$ are defined in
 terms of the same three quantities with the addition of survey catchability $Q$:
 
-\begin{equation*}
+\begin{equation}
   I_{ays} = \bm{Q}_{ays} \bm{R}_{y}e^{-\sum (\bm{F}_{ay} + M_{ay})}
-\end{equation*}
+\end{equation}
 
 where $s$ denotes survey or abundance index and allows for multiple surveys to be
 considered. Observed catches $C^{(obs)}$ and the observed survey indices $I^{(obs)}$
 are assumed to be log-normally distributed, or equivalently, normally distributed on
 the log-scale, with age, year and survey specific observation variance:
 
-\begin{equation*}
+\begin{equation}
   \log C^{(obs)}_{ay} \sim \text{Normal} \Big( \log C_{ay}, \bm{\sigma}^2_{ay}\Big) \qquad
   \log I^{(obs)}_{ays} \sim \text{Normal} \Big( \log I_{ays}, \bm{\tau}^2_{ays} \Big)
-\end{equation*}
+\end{equation}
 
 The full log-likelihood for the \aFa statistical catch at age model can now be defined
 as the sum of the log-likelihood of the observed catches ($\ell_N$ is the log-likelihood
 of a normal distribution)
 
-\begin{equation*}
+\begin{equation}
   \ell_C = \sum_{ay} w^{(c)}_{ay}\ \ell_N \Big( \log C_{ay}, \bm{\sigma}^2_{ay} ;\ \log C^{(obs)}_{ay} \Big)
-\end{equation*}
+\end{equation}
 
 and the log-likelihood of the observed survey indices
 
-\begin{equation*}
+\begin{equation}
   \ell_I = \sum_s \sum_{ay} w^{(s)}_{ays}\ \ell_N \Big( \log I_{ays}, \bm{\tau}_{ays}^2 ;\ \log I^{(obs)}_{ays} \Big)
-\end{equation*}
+\end{equation}
 
 giving the total log-likelihood
 
-\begin{equation*}
+\begin{equation}
+  \label{eq:ll_full1}
   \ell = \ell_C + \ell_I
-\end{equation*}
+\end{equation}
 
 which is defined in terms of the strictly positive quantites, $M_{ay}$, $F_{ay}$,
 $Q_{ays}$ and $R_{y}$, and the observation variances $\sigma_{ay}$ and $\tau_{ays}$.
@@ -236,9 +238,9 @@ than observations.  In order to reduce the number of parameters, $M_{ay}$ is ass
 known (as is common), and the remaining parameters are written in terms of a linear
 combination of covariates $x_{ayk}$, e.g.
 
-\begin{equation*}
+\begin{equation}
   \log F_{ay} = \sum_k \beta_k x_{ayk}
-\end{equation*}
+\end{equation}
 
 where $k$ is the number of parameters to be estimated and is sufficiently small. Using
 this tecnique the quantities $\log F$, $\log Q$, $\log \sigma$ and $\log \tau$
@@ -257,21 +259,22 @@ and modelled recruitment $R$, included as a fixed variance random effect.  Optio
 relationship are the hard coded models Ricker, Beverton Holt, smooth hockeystick or
 geometric mean. This is implemented by including a third component in the log-likelihood
 
-\begin{equation*}
+\begin{equation}
   \ell_{SR} = \sum_y \ell_N \Big( \log \tilde{R}_y(a, b), \phi_y^2 ;\ \log R_y \Big)
-\end{equation*}
+\end{equation}
 
 giving the total log-likelihood
 
-\begin{equation*}
+\begin{equation}
+  \label{eq:ll_full2}
   \ell = \ell_C + \ell_I + \ell_{SR}
-\end{equation*}
+\end{equation}
 
 Using the (time varying) Ricker model as an example, predicted recruitment is
 
-\begin{equation*}
+\begin{equation}
   \tilde{R}_y(a_y,b_y) = a_y S_{y-1} e^{-b_y S_{y-1}}
-\end{equation*}
+\end{equation}
 
 where $S$ is spawning stock biomass derived from the model parameters $F$ and $R$, and
 the fixed quantites $M$ and mean weights by year and age. It is assumed that $R$ is
@@ -279,9 +282,9 @@ log-normally distributed, or equivalently, normally distributed on the log-scale
 the (log) recruitment predicted by the SR model $\tilde{R}$, with known variance $\phi^2$,
 i.e.
 
-\begin{equation*}
+\begin{equation}
   \log R_y \sim \text{Normal} \Big( \log \tilde{R}_y, \phi_y^2 \Big)
-\end{equation*}
+\end{equation}
 
 which leads to the definition of $\ell_{SR}$ given above. In all cases $a$ and $b$ are
 strictly positive, and with the quantities $F$, $R$, etc. linear models are used to
@@ -290,9 +293,9 @@ parameterise $\log a$ and/or $\log b$, where relevant.
 By default, recruitment $R$ as apposed to the reruitment predicted from a stock recruitment
 model $\tilde{R}$, is specified as a linear model with a parameter for each year, i.e.
 
-\begin{equation*}
+\begin{equation}
   \log R_y = \gamma_y
-\end{equation*}
+\end{equation}
 
 This is to allow modelled recruitment $R_y$ to be shrunk towards the stock recruitment model.
 However, if it is considered appropriate that recruitment can be determined exactly by a
@@ -304,7 +307,8 @@ model in the same way as $\log F$, $\log Q$, $\log \sigma$ and $\log \tau$.
 % ---------------------------------------------------------------------------------------------------
 \subsubsection*{Model fitting}
 
-Model fitting is done by optimising the combined likelihood (above) in ADMB.
+Model fitting is done by optimising the combined likelihood (\ref{eq:ll_full1}) or
+(\ref{eq:ll_full2}) in ADMB.
 
 
 
