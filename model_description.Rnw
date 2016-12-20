@@ -1,6 +1,11 @@
 \documentclass[a4paper,english]{article}
 \usepackage{a4a}
 
+\title{Description of Catch at Age model}
+\author{Colin P. Millar, Ernesto Jardim}
+\date{}
+
+
 \begin{document}
 
 \section*{Coverpage}
@@ -31,12 +36,10 @@ sessionInfo()
 @
 
 
-\title{Description of Catch at Age model}
-\author{Colin P. Millar, Ernesto Jardim}
-\date{}
 \maketitle
 
-\abstract{This document presents a decription of the statistical catch-at-age stock assessment
+\begin{abstract}
+This document presents a decription of the statistical catch-at-age stock assessment
 model developed in the JRC Assessment For All (\aFa) initiative. The stock assessment
 model framework is a non-linear catch-at-age model implemented in R \url{http://www.r-project.org/}
 / FLR \url{http://www.flr-project.org/} / ADMB \url{http://www.admb-project.org/} that
@@ -48,7 +51,8 @@ indices catchability-at-age, and a list of models for the observation variance o
 and abundance indices. The submodels are formulated through linear models. This opens the
 possibility of using the linear modelling tools available in R: see for example the mgcv
 \url{http://cran.r-project.org/web/packages/mgcv/index.html} gam formulas and useful overview of R
-formulas here \url{http://science.nature.nps.gov/im/datamgmt/statistics/r/formulas/}.}
+formulas here \url{http://science.nature.nps.gov/im/datamgmt/statistics/r/formulas/}.
+\end{abstract}
 
 \tableofcontents
 
@@ -62,8 +66,8 @@ formulas here \url{http://science.nature.nps.gov/im/datamgmt/statistics/r/formul
 
 \section{Background}
 
-The stock assessment model framework is a non-linear catch-at-age model implemented in
-R/FLR/ADMB that can be applied rapidly to a wide range of situations with low parametrization
+The \aFa stock assessment model is a non-linear catch-at-age model implemented in
+R / FLR / ADMB that can be applied rapidly to a wide range of situations with low parametrization
 requirements.
 
 In the \aFa assessment model, the model structure is defined by submodels, which are

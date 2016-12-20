@@ -1,23 +1,14 @@
 \ProvidesPackage{a4a}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
-\usepackage{graphicx}
-\usepackage{color}
-\usepackage{float}
-\usepackage{longtable}
-\usepackage[bottom]{footmisc}
 \usepackage{url}
 \usepackage{hyperref}
-\usepackage{authblk}
 \usepackage[utf8x]{inputenc}
-\usepackage{babel}
-\usepackage{hyperref}
 \usepackage{geometry}
 \geometry{verbose,a4paper,tmargin=3cm,bmargin=2cm,lmargin=2cm,rmargin=3cm}
-%\geometry{verbose,a4paper}
-\setlength{\parskip}{\medskipamount}
-\setlength{\parindent}{0pt}
+
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
     linkcolor=blue,        % color of internal links
@@ -25,6 +16,9 @@
     filecolor=blue,        % color of file links
     urlcolor=blue          % color of external links
 }
+
+\setlength{\parskip}{\medparskip}
+\setlength{\parindent}{0pt}
 
 % Define some handy formatting
 %\newcommand{\initiative}[1]{{\texttt{#1}}}
@@ -43,17 +37,3 @@
 \newcommand{\OEM}{{\texttt{OEM }}{}}
 \newcommand{\IEM}{{\texttt{IEM }}{}}
 
-
-% more shortcuts
-\newcommand{\half}{\frac{1}{2}}
-\newcommand{\Prec}[1]{\text{Prec}\left[ #1 \right]}
-\newcommand{\iid}{\stackrel{\mathrm{iid}}{\sim}}
-\newcommand{\T}{^\mathsf{T}}
-\newcommand{\Det}[1]{\begin{vmatrix} #1 \end{vmatrix}}
-\newcommand{\pdif}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\pddif}[2]{\frac{\partial^2 #1}{\partial #2^2}}
-\newcommand{\pddiff}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
-%\newcommand{\balpha}{{\boldsymbol\alpha}}
-%\newcommand{\bbeta}{{\boldsymbol\beta}}
-%\newcommand{\btheta}{{\boldsymbol\theta}}
-%\newcommand{\pdx}[2]{\frac{\partial#1}{\partial#2}}
