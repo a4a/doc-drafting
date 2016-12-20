@@ -128,7 +128,7 @@ is $N_{ay}$ are assumed to die through the year at a constant rate given by $e^{
 $Z_{ay}$ is always positive, and that this rate is solely due to natural causes $M_{ay}$ and
 fishing $F_{ay}$. At the start of the following year $y+1$ the number of fish $N_{a+1,y+1}$ is
 the number of fish, 1 year older, that survived the perils of year $y$. This results in an
-expression that describes the simplest type of population dynamics in the \a4a model
+expression that describes the simplest type of population dynamics in the \aFa model
 
 \begin{align}
   \label{eq:pop_decay}
