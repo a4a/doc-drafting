@@ -39,10 +39,10 @@ sessionInfo()
 \maketitle
 
 \begin{abstract}
-This document presents a decription of the statistical catch-at-age stock assessment
+\noindent This document presents a decription of the statistical catch-at-age stock assessment
 model developed in the JRC Assessment For All (\aFa) initiative. The stock assessment
-model framework is a non-linear catch-at-age model implemented in R \url{http://www.r-project.org/}
-/ FLR \url{http://www.flr-project.org/} / ADMB \url{http://www.admb-project.org/} that
+model framework is a non-linear catch-at-age model implemented in R \url{http://www.r-project.org/},
+FLR \url{http://www.flr-project.org/} and ADMB \url{http://www.admb-project.org/} that
 can be applied rapidly to a wide range of situations with low parametrization requirements.
 The model structure is defined by submodels, which are the different parts that require
 structural assumptions. There are 5 submodels in operation: a model for F-at-age, a model
@@ -71,12 +71,11 @@ R / FLR / ADMB that can be applied rapidly to a wide range of situations with lo
 requirements.
 
 In the \aFa assessment model, the model structure is defined by submodels, which are
-the different parts of a statistical catch at age model that require structural assumptions.
-
-There are 5 submodels in operation:
+the different parts of a statistical catch at age model that require structural assumptions. There
+are 5 submodels in operation:
 \begin{itemize}
 	\item a model for F-at-age,
-	\item a (list) of model(s) for abundance indices catchability-at-age,
+	\item a (list) of model(s) for abundance index catchability-at-age,
 	\item a model for recruitment,
 	\item a list of models for the observation variance of catch-at-age and abundance indices,
 	\item a model for the initial age structure,
@@ -85,28 +84,25 @@ There are 5 submodels in operation:
 In practice, we fix the variance models and the initial age structure models, but
 in theory these can be changed.
 
-The submodels form use linear models. This opens the possibility of using the linear
-modelling tools available in R: see for example the
+The submodels are formulated through the use of linear models. This opens the possibility of using
+the linear modelling tools available in R: see for example the
 \href{http://cran.r-project.org/web/packages/mgcv/index.html}{mgcv} gam formulas, or
-factorial design formulas using \code{lm()}. In R's linear modelling language, a constant
-model is coded as $\sim 1$, while a slope over age would simply be $\sim age$. For example,
-we can write a traditional year/age separable F model like $\sim factor(age) + factor(year)$.
+factorial design formulas using \code{lm()}, a usefull overview of model formulas in R can be
+found here \url{http://science.nature.nps.gov/im/datamgmt/statistics/r/formulas/}. In R's linear
+modelling language, a constant model is coded as $\sim 1$, while a slope over age would simply
+be $\sim age$. For example, we can write a traditional year/age separable F model like
+$\sim factor(age) + factor(year)$.
 
 The 'language' of linear models has been developing within the statistical community for
 many years, and constitutes an elegant way of defining models without going through the
-complexity of mathematical representations. This approach makes it also easier to
-communicate among scientists
+complexity of mathematical representations. This approach helps to improve
+communication among scientists
   \begin{itemize}
   \item \href{http://rspa.royalsocietypublishing.org/content/283/1393/147.short}{1965 J. A. Nelder}, notation for randomized block design
   \item \href{http://www.jstor.org/stable/info/2346786}{1973 Wilkinson and Rodgers}, symbolic description for factorial designs
   \item \href{http://books.google.com/books?isbn=0412343908}{1990 Hastie and Tibshirani}, introduced notation for smoothers
   \item \href{http://books.google.com/books?isbn=041283040X}{1991 Chambers and Hastie}, further developed for use in S
   \end{itemize}
-
-There are two basic types of assessments available in \aFa: the management procedure
-fit and the full assessment fit. The management procedure fit does not compute estimates
-of covariances and is therefore quicker to execute, while the full assessment fit returns
-parameter estimates and their covariances at the expense of longer fitting time.
 
 
 
