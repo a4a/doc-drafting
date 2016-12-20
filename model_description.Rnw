@@ -36,7 +36,7 @@ sessionInfo()
 \date{}
 \maketitle
 
-\abstract{This document presents the statistical catch-at-age stock assessment
+\abstract{This document presents a decription of the statistical catch-at-age stock assessment
 model developed in the JRC Assessment For All (\aFa) initiative. The stock assessment
 model framework is a non-linear catch-at-age model implemented in R \url{http://www.r-project.org/}
 / FLR \url{http://www.flr-project.org/} / ADMB \url{http://www.admb-project.org/} that
@@ -45,17 +45,10 @@ The model structure is defined by submodels, which are the different parts that 
 structural assumptions. There are 5 submodels in operation: a model for F-at-age, a model
 for the initial age structure, a model for recruitment, a (list) of model(s) for abundance
 indices catchability-at-age, and a list of models for the observation variance of catch-at-age
-and abundance indices. The submodels form use linear models. This opens the possibility of
-using the linear modelling tools available in R: see for example the mgcv
-\url{http://cran.r-project.org/web/packages/mgcv/index.html} gam formulas, or factorial
-design formulas using. Detailed model formulas, several diagnostic tools and a large set
-of models are presented in the document. Additionaly, advanced features like external
-weighting of the likelihood components and MCMC fits are also described. The target
-audience for this document are readers with some experience in R and some background on
-stock assessment. The document explains the approach being developed by a4a for fish stock
-assessment and scientific advice. It presents a mixture of text and code, where the first
-explains the concepts behind the methods, while the last shows how these can be run with
-the software provided.}
+and abundance indices. The submodels are formulated through linear models. This opens the
+possibility of using the linear modelling tools available in R: see for example the mgcv
+\url{http://cran.r-project.org/web/packages/mgcv/index.html} gam formulas and useful overview of R
+formulas here \url{http://science.nature.nps.gov/im/datamgmt/statistics/r/formulas/}.}
 
 \tableofcontents
 
@@ -156,28 +149,6 @@ died, and is written here as the familiar Baranov catch equation
   C_{at} &= \frac{F_{at}}{Z_{at}}\left(N_{at} - N_{a+1,t+1} \right) \\
          &= \frac{F_{at}}{Z_{at}}\left(1 - e^{- Z_{at}}\right) N_{at}
 \end{align*}
-
-These last two equations show that in there own way, catches and abundance indices are
-both observations of the numbers of fish in the population.  Neither is sufficient to
-estimate the absolute abundances $N$ but together they can be used to estimate both $N$
-and $F$.  One way of doing this is using a statistical catch at age approach
-\citep[see for example][]{Myers_Cadigan.94} where much like in a regression model we
-find the values of $F$ and $N$ that give the best fit to our observations.  The only
-specification we need to make is how our observations come about, or how are observations
-distributed about the model predictions.  We assume that catches and indices are normally
-distributed on the log scale.  This is for two reasons: 1) catches and indices are
-typically positive with variances that increase as the level increases in such a way
-that taking logs makes the variance constant. 2) the equations given above become easier
-to deal with on the log scale as we will show later.  This leads to the following
-distributional assumptions
-
-\begin{align*}
- c_{at} &\sim N \Bigg( \log \left( \frac{F_{at}}{Z_{at}} \left( 1 - e^{-Z_{at}} \right)\right) + n_{at}, \quad \sigma_c^2 \Bigg) \\
-\intertext{and}
- s_{at} &\sim N\Bigg( q_{a} + n_{at}, \quad \sigma_s^2 \Bigg)
-\end{align*}
-
-where in these equations we have written logs in lower case i.e. $c = \log C$.
 
 
 
@@ -399,9 +370,7 @@ $\theta = (\kappa, \tau_1, \ldots)$.
 
 First potential models for $q_a$.  Linear forms can be included my simply
 changing the design matrices.  By linear forms i mean spline smoothers with
-fixed degrees of freedom.  An interesting addition would be to use penalised
-splines or better (i think) structured random effects
-\citep[GMRFs i.e. 1st order and 2nd order random walks, see for example][]{Rue_Held.2005}.
+fixed degrees of freedom.
 Structured random effect models using GMRFs require a Bayesian approach.  If
 the variance of these is assumed known then these random effects can be integrated
 out directly, but if the variance is to be estimated it must be done in the
