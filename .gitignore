@@ -9,5 +9,6 @@
 *.log
 *.bbl
 *.synctex.gz
+*.toc
 model_description.tex
 model_description-concordance.tex

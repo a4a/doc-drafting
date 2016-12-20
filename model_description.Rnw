@@ -27,6 +27,52 @@ sessionInfo()
 \date{}
 \maketitle
 
+\maketitle
+
+\abstract{This document presents the statistical catch-at-age stock assessment model developed in the JRC Assessment For All (\aFa) initiative. The stock assessment model framework is a non-linear catch-at-age model implemented in R (http://www.r-project.org/) / FLR (http://www.flr-project.org/) / ADMB (http://www.admb-project.org/) that can be applied rapidly to a wide range of situations with low parametrization requirements. The model structure is defined by submodels, which are the different parts that require structural assumptions. There are 5 submodels in operation: a model for F-at-age, a model for the initial age structure, a model for recruitment, a (list) of model(s) for abundance indices catchability-at-age, and a list of models for the observation variance of catch-at-age and abundance indices. The submodels form use linear models. This opens the possibility of using the linear modelling tools available in R: see for example the mgcv (http://cran.r-project.org/web/packages/mgcv/index.html) gam formulas, or factorial design formulas using. Detailed model formulas, several diagnostic tools and a large set of models are presented in the document. Additionaly, advanced features like external weighting of the likelihood components and MCMC fits are also described. The target audience for this document are readers with some experience in R and some background on stock assessment. The document explains the approach being developed by a4a for fish stock assessment and scientific advice. It presents a mixture of text and code, where the first explains the concepts behind the methods, while the last shows how these can be run with the software provided.}
+
+\newpage
+\tableofcontents
+\newpage
+
+<<knitr_opts2, echo=FALSE, message=FALSE, warning=FALSE>>=
+library(knitr)
+library(formatR)
+thm = knit_theme$get("bclear") #moe, bclear
+knit_theme$set(thm)
+opts_chunk$set(dev='png', cache=TRUE, fig.align='center', warning=FALSE, message=FALSE, dev.args=list(type="cairo"), dpi=96, highlight=TRUE, background='#F2F2F2', fig.lp="fig:", fig.pos="H", width=70, tidy=TRUE, out.width='.9\\linewidth')
+@
+
+\section{Background}
+
+The stock assessment model framework is a non-linear catch-at-age model implemented in R/FLR/ADMB that can be applied rapidly to a wide range of situations with low parametrization requirements.
+
+In the \aFa assessment model, the model structure is defined by submodels, which are the different parts of a statistical catch at age model that require structural assumptions.
+
+There are 5 submodels in operation:
+\begin{itemize}
+	\item a model for F-at-age,
+	\item a (list) of model(s) for abundance indices catchability-at-age,
+	\item a model for recruitment,
+	\item a list of models for the observation variance of catch-at-age and abundance indices,
+	\item a model for the initial age structure,
+\end{itemize}
+
+In practice, we fix the variance models and the initial age structure models, but in theory these can be changed.
+
+The submodels form use linear models. This opens the possibility of using the linear modelling tools available in R: see for example the \href{http://cran.r-project.org/web/packages/mgcv/index.html}{mgcv} gam formulas, or factorial design formulas using \code{lm()}. In R's linear modelling language, a constant model is coded as $\sim 1$, while a slope over age would simply be $\sim age$. For example, we can write a traditional year/age separable F model like $\sim factor(age) + factor(year)$.
+
+The 'language' of linear models has been developing within the statistical community for many years, and constitutes an elegant way of defining models without going through the complexity of mathematical representations. This approach makes it also easier to communicate among scientists
+  \begin{itemize}
+  \item \href{http://rspa.royalsocietypublishing.org/content/283/1393/147.short}{1965 J. A. Nelder}, notation for randomized block design
+  \item \href{http://www.jstor.org/stable/info/2346786}{1973 Wilkinson and Rodgers}, symbolic description for factorial designs
+  \item \href{http://books.google.com/books?isbn=0412343908}{1990 Hastie and Tibshirani}, introduced notation for smoothers
+  \item \href{http://books.google.com/books?isbn=041283040X}{1991 Chambers and Hastie}, further developed for use in S
+  \end{itemize}
+
+There are two basic types of assessments available in \aFa: the management procedure fit and the full assessment fit. The management procedure fit does not compute estimates of covariances and is therefore quicker to execute, while the full assessment fit returns parameter estimates and their covariances at the expense of longer fitting time.
+
+
 \section{Motivation}
 
 The goal is to describe an age based model that is robust and easy to use.  Robustness here means robust parameter estimation in addition to being robust to (underlying) model complexity.  We aim to provide robust parameter estimates by concentrating parameters out of the objective function where possible and using structured random effects to allow for complexity when the data support it.  More on this in the coming sections, but first a brief description of the data that the model will have to fit to.
