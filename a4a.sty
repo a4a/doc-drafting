@@ -1,0 +1,61 @@
+\ProvidesPackage{a4a}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[bottom]{footmisc}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{natbib}
+\usepackage{authblk}
+\usepackage[utf8x]{inputenc}
+\usepackage{babel}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{verbose,a4paper,tmargin=3cm,bmargin=2cm,lmargin=2cm,rmargin=3cm}
+%\geometry{verbose,a4paper}
+\setlength{\parskip}{\medskipamount}
+\setlength{\parindent}{0pt}
+\hypersetup{
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,        % color of internal links
+    citecolor=red,         % color of links to bibliography
+    filecolor=blue,        % color of file links
+    urlcolor=blue          % color of external links
+}
+
+% Define some handy formatting
+%\newcommand{\initiative}[1]{{\texttt{#1}}}
+\newcommand{\code}[1]{{\texttt{#1}}}
+\newcommand{\pkg}[1]{{\texttt{#1}}}
+\newcommand{\class}[1]{{\textit{#1}}}
+\newcommand{\R}{{\normalfont\textsf{R}}{}}
+\newcommand{\aFa}{{\texttt{a4a }}{}}
+\newcommand{\args}[1]{{\texttt{#1}}}
+\newcommand{\E}[1]{\text{E}\left[#1\right]}
+\newcommand{\Var}[1]{\text{Var}\left[#1\right]}
+\newcommand{\MSE}{{\texttt{MSE }}{}}
+\newcommand{\HCR}{{\texttt{HCR }}{}}
+\newcommand{\OM}{{\texttt{OM }}{}}
+\newcommand{\MP}{{\texttt{MP }}{}}
+\newcommand{\OEM}{{\texttt{OEM }}{}}
+\newcommand{\IEM}{{\texttt{IEM }}{}}
+
+
+% more shortcuts
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\Prec}[1]{\text{Prec}\left[ #1 \right]}
+\newcommand{\iid}{\stackrel{\mathrm{iid}}{\sim}}
+\newcommand{\T}{^\mathsf{T}}
+\newcommand{\Det}[1]{\begin{vmatrix} #1 \end{vmatrix}}
+\newcommand{\pdif}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pddif}[2]{\frac{\partial^2 #1}{\partial #2^2}}
+\newcommand{\pddiff}[3]{\frac{\partial^2 #1}{\partial #2 \partial #3}}
+%\newcommand{\balpha}{{\boldsymbol\alpha}}
+%\newcommand{\bbeta}{{\boldsymbol\beta}}
+%\newcommand{\btheta}{{\boldsymbol\theta}}
+%\newcommand{\pdx}[2]{\frac{\partial#1}{\partial#2}}
